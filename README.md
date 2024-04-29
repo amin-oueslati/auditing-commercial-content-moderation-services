@@ -32,7 +32,7 @@ This folder exclusively pertains to Experiment 3 and is entirely written in R. T
 
 ### Note on Reproducability
 
-API keys were invalidated to avoid abuse. However, if evaulators' of this thesis want to replicate particular results, this can be accomodated, ideally on a smaller sample. Extensive reproduction would also be feasible, but requires prior discussion. Running the involved API calls does not require any GPU support, parallelisation and batching is embedded in the call scripts. The BiLSTM model was executed with GPU support (T4, 15GB) to reduce run time.
+API keys were invalidated to avoid abuse. However, if evaulators' of this thesis want to replicate particular results, this can be accomodated, ideally on a smaller sample. Extensive reproduction would also be feasible, but requires prior discussion. Running the involved API calls does not require any GPU support, parallelisation and batching are embedded in the call scripts. The BiLSTM model was executed with GPU support (T4, 15GB) to reduce run time.
 
 Given GitHub's data constraints, the pre-trained classification model was excluded from the repository. It can be made available upon request. Further, the raw dataset for Jigsaw exceeds the GitHub data limit, but can be accessed directly via [Jigsaw Unintended Bias in Toxicity Classification](https://www.kaggle.com/c/jigsaw-unintended-bias-in-toxicity-classification/data). 
 
