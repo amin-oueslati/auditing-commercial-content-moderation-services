@@ -11,3 +11,8 @@ The paper conducts a comparative audit of four major commercial cloud-based cont
 
 
 ## Repository Overview
+
+
+[^1]: Jigsaw. Jigsaw toxic comment classification challenge., 2019. URL: https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge.
+[^2]: To add line breaks within a footnote, prefix new lines with 2 spaces.
+  This is a second line.
