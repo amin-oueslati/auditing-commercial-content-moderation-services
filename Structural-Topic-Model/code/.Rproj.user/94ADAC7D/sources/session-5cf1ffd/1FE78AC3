@@ -1,0 +1,26 @@
+{
+    "id": "1FE78AC3",
+    "path": "~/Desktop/Content-Moderation-Audit-Playground/Structural-Topic-Model/code/03b_interpret_stm.R",
+    "project_path": "03b_interpret_stm.R",
+    "type": "r_source",
+    "hash": "1164043028",
+    "contents": "",
+    "dirty": false,
+    "created": 1714027095141.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "272,58",
+        "scrollLine": "267"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1714302696,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1714302696056,
+    "read_only": false,
+    "read_only_alternatives": []
+}

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<style>body{background-color:white;}</style>
+<script src="lib/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="lib/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="lib/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="lib/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="lib/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="lib/kePrint-0.0.1/kePrint.js"></script>
+<link href="lib/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+</head>
+<body>
+<table class="table table-striped table-hover" style="font-size: 14px; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:right;"> Topic </th>
+   <th style="text-align:left;"> Labels K30 </th>
+   <th style="text-align:left;"> Labels K50 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:left;"> cake, coupl, busi, baker, anim, discrimin, court </td>
+   <td style="text-align:left;"> anim, toward, negat, attitud, firearm, pretti, respect </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:left;"> immigr, illeg, mexican, state, unit, minor, american </td>
+   <td style="text-align:left;"> israel, popul, border, state, largest, wall, build </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:left;"> japanes, africa, south, war, korean, confeder, statu </td>
+   <td style="text-align:left;"> japanes, natur, part, holi, tree, armi, flag </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:left;"> china, world, night, yellow, great, indian, holocaust </td>
+   <td style="text-align:left;"> great, king, martin, aw, idea, luther, refuge </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:left;"> s, end, come, old, communiti, news, fake </td>
+   <td style="text-align:left;"> end, goe, low, vision, win, pretend, blind </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:left;"> israel, food, non, move, hous, land, tv </td>
+   <td style="text-align:left;"> joke, mine, liter, bird, apartheid, folk, tire </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:left;"> plan, tax, market, crisi, insan, eugen, dollar </td>
+   <td style="text-align:left;"> home, move, foreign, non, seen, movement, month </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:left;"> fuck, just, like, hate, think, realli, girl </td>
+   <td style="text-align:left;"> hate, nigga, christian, religion, u, religi, stupid </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:left;"> negro, term, interest, refer, wonder, surpris, wasnt </td>
+   <td style="text-align:left;"> post, term, africa, week, intellig, useless, origin </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:left;"> right, free, new, york, equal, speech, season </td>
+   <td style="text-align:left;"> color, right, parti, skin, yellow, civil, brown </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:left;"> crime, kill, gun, violenc, murder, commit, crimin </td>
+   <td style="text-align:left;"> day, fire, respons, street, car, ago, front </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:left;"> polic, men, arrest, face, blm, offic, accus </td>
+   <td style="text-align:left;"> men, sex, priest, male, straight, sexual, homophob </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:left;"> chines, want, can, school, take, kid, good </td>
+   <td style="text-align:left;"> asian, like, girl, lot, look, minor, stereotyp </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:left;"> asian, know, cant, love, feel, child, speak </td>
+   <td style="text-align:left;"> can, disord, transgend, medic, gender, charact, person </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 15 </td>
+   <td style="text-align:left;"> weak, charact, lack, import, 1, defin, welcom </td>
+   <td style="text-align:left;"> indian, abort, marriag, gop, scum, prolif, percent </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 16 </td>
+   <td style="text-align:left;"> articl, two, explain, claim, board, ago, sentenc </td>
+   <td style="text-align:left;"> someth, articl, wrong, list, nazi, replac, georg </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 17 </td>
+   <td style="text-align:left;"> control, nazi, canada, kkk, russia, canadian, march </td>
+   <td style="text-align:left;"> everi, top, news, islam, singl, convert, cent </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:left;"> white, black, race, racist, racism, skin, color </td>
+   <td style="text-align:left;"> fuck, your, im, trash, sure, that, isnt </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 19 </td>
+   <td style="text-align:left;"> nigga, yall, watch, youtub, game, head, video </td>
+   <td style="text-align:left;"> church, homosexu, teach, cathol, faith, moral, jesus </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:left;"> homophob, lie, liber, ok, cri, fun, told </td>
+   <td style="text-align:left;"> wear, throw, browni, meet, drop, posit, felt </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 21 </td>
+   <td style="text-align:left;"> due, amount, risk, studi, model, oregon, domin </td>
+   <td style="text-align:left;"> anti, global, semet, due, pro, popular, warm </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 22 </td>
+   <td style="text-align:left;"> church, cathol, priest, bishop, pope, christian, religi </td>
+   <td style="text-align:left;"> may, block, testosteron, chang, command, level, proport </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:left;"> someth, wrong, kind, without, easi, exampl, evil </td>
+   <td style="text-align:left;"> countri, world, enough, persecut, creat, chosen, reason </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 24 </td>
+   <td style="text-align:left;"> obama, trump, vote, presid, elect, democrat, clinton </td>
+   <td style="text-align:left;"> disgust, sin, imposs, ration, discuss, center, samesex </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 25 </td>
+   <td style="text-align:left;"> mental, ill, health, disord, blind, wheelchair, physic </td>
+   <td style="text-align:left;"> need, stop, help, pleas, care, pay, deport </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 26 </td>
+   <td style="text-align:left;"> gender, transgend, sex, sexual, marriag, homosexu, orient </td>
+   <td style="text-align:left;"> use, word, =, remov, known, n, relat </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:left;"> job, play, homeless, drug, individu, math, abus </td>
+   <td style="text-align:left;"> probabl, notic, lazi, homeless, rap, hot, count </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 28 </td>
+   <td style="text-align:left;"> your, word, ive, tell, anyon, read, stop </td>
+   <td style="text-align:left;"> know, speak, didnt, dont, cake, talk, heard </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 29 </td>
+   <td style="text-align:left;"> group, america, cultur, histori, ethnic, past, persecut </td>
+   <td style="text-align:left;"> america, immigr, illeg, unit, group, hispan, slave </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 30 </td>
+   <td style="text-align:left;"> go, time, make, tri, now, let, us </td>
+   <td style="text-align:left;"> someon, 1, must, enemi, describ, citizen, member </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 31 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> man, possibl, marri, born, bodi, attract, accus </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 32 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> communiti, pride, blm, toronto, parad, toler, understand </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 33 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> hes, conserv, surpris, liber, fault, antigay, bush </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 34 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> wait, develop, ugli, faggot, previous, revolut, standard </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 35 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> school, kid, parent, children, child, high, student </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 36 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> colleg, m, 5, listen, trudeau, peac, apolog </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 37 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> kill, polic, shoot, cop, murder, shot, protest </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 38 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> hell, sens, holocaust, common, belong, small, arab </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 39 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> mental, ill, health, treat, physic, wheelchair, abl </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 40 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> live, better, new, poor, negro, york, citi </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 41 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> get, want, job, cant, mad, got, hey </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 42 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> name, s, dumb, quot, rare, d, topic </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 43 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> trump, presid, obama, idiot, run, elect, donald </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 44 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> chines, friend, cultur, mexican, best, china, food </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 45 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> four, neighbor, automat, team, afraid, fear, charg </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 46 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> see, watch, video, monkey, kat, andr, game </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 47 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> decid, final, test, north, candid, product, select </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 48 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> white, race, person, supremacist, racism, black, racist </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 49 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> control, media, legal, market, industri, gun, = </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 50 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> think, peopl, just, thing, one, make, go </td>
+  </tr>
+</tbody>
+</table> <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [["$","$"]]}})</script><script async src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

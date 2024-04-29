@@ -1,0 +1,278 @@
+# ---------------------------------------------------------------------------------------
+# BAYESIAN HIERARCHICAL AND LATENT VARIABLE MODELING
+# Homework 3
+# Instructor: Sascha Göbel
+# Student: Carl Jannes Neuse
+# April 2024
+# ---------------------------------------------------------------------------------------
+
+
+#### PREPARATIONS =======================================================================
+
+# set working directory -----------------------------------------------------------------
+setwd("/Users/neuse/Documents/MPP/Semester 4/baysian-statistics/baysian")
+
+# install and load packages -------------------------------------------------------------
+source("packages.R")
+source("functions.R")
+
+
+# Task 2 ---------------------------------------------------------------------------
+
+#### PREPARE DATA =======================================================================
+
+# import data ---------------------------------------------------------------------------
+voter_data <- readRDS("voter_data") 
+
+# format data for stan ------------------------------------------------------------------
+voter_data_long <- voter_data %>%
+  pivot_longer(
+    cols = starts_with("voted"),  # Select columns that start with 'voted'
+    names_to = "election",  # New column for the names of the old columns
+    values_to = "voted",  # New column for the values of the old columns
+    names_prefix = "voted_"  # Remove the prefix 'voted_' from the new 'election' column values
+  )
+
+voter_data_long <- voter_data_long[!is.na(voter_data_long$voted), ] #removal of NAs
+
+print(sapply(voter_data_long, class)) #voted is already integer
+voter_data_long$voter <- as.integer(as.factor(voter_data_long$voter))
+voter_data_long$election_id <- as.integer(as.factor(voter_data_long$election))
+
+voter_data_long <- voter_data_long %>%
+  mutate(election_id = case_when(
+    election == "gen_2006" ~ 1,
+    election == "gen_2008" ~ 2,
+    election == "gen_2010" ~ 3,
+    election == "gen_2012" ~ 4,
+    election == "gen_2014" ~ 5,
+    election == "gen_2016" ~ 6,
+    election == "gen_2018" ~ 7,
+    election == "pri_2006" ~ 8,
+    election == "pri_2008" ~ 9,
+    election == "pri_2010" ~ 10,
+    election == "pri_2012" ~ 11,
+    election == "pri_2014" ~ 12,
+    election == "pri_2016" ~ 13,
+    election == "pri_2018" ~ 14,
+    TRUE ~ NA_integer_  # Assign NA for any unmatched cases
+  ))
+
+# prepare data for stan -----------------------------------------------------------------
+
+data_stan <- list(
+  N = nrow(voter_data_long),
+  J = length(unique(voter_data_long$voter)),
+  I = length(unique(voter_data_long$election)),
+  jj = voter_data_long$voter,
+  ii = voter_data_long$election_id,
+  y = voter_data_long$voted
+)
+
+
+#### 2PL ITEM RESPONSE MODEL ------------------------------------------------------------
+
+# stan program --------------------------------------------------------------------------
+voter_turnout_model <- "// Stan program for Voter Turnout Model
+data {
+    int<lower=1> N;                 // Number of observations
+    int<lower=1> J;                 // Number of voters
+    int<lower=1> I;                 // Number of elections
+    array[N] int<lower=1, upper=J> jj;  // Voter index for each observation
+    array[N] int<lower=1, upper=I> ii;  // Election index for each observation
+    array[N] int<lower=0, upper=1> y;   // Voter turnout: 1 if voted, 0 if not
+}
+
+parameters {
+    vector[I] alpha;                // Difficulty parameter for each election
+    vector<lower=0>[I] beta;        // Discrimination parameter for each election
+    vector[J] eta;                  // Latent propensity for each voter
+    real mu_alpha;                  // Mean of difficulty parameters
+    real<lower=0> sigma_alpha;      // Standard deviation of difficulty parameters
+    real<lower=0> sigma_beta;       // Standard deviation of discrimination parameters
+}
+
+model {
+    // Priors
+    alpha ~ normal(mu_alpha, sigma_alpha);
+    beta ~ lognormal(0, sigma_beta);
+    eta ~ normal(0, 1);
+    mu_alpha ~ student_t(3, 0, 1);        // Student-t prior for mean of alpha
+    sigma_alpha ~ student_t(3, 0, 1);     // Half-Student-t prior for SD of alpha
+    sigma_beta ~ student_t(3, 0, 1);      // Half-Student-t prior for SD of beta
+
+    // Likelihood
+    for (n in 1:N) {
+        real pi = inv_logit(beta[ii[n]] * (eta[jj[n]] - alpha[ii[n]])); // Logit function
+        y[n] ~ bernoulli(pi); // Binomial likelihood for voter turnout
+    }
+}
+"
+
+# save as .stan file --------------------------------------------------------------------
+write(voter_turnout_model, "voter_turnout_model.stan")
+
+# compile model -------------------------------------------------------------------------
+voter_turnout_model_compiled <- cmdstan_model("voter_turnout_model.stan")
+
+# sample from the posterior -------------------------------------------------------------
+fit <- voter_turnout_model_compiled$sample(
+  data = data_stan,
+  parallel_chains = 4,
+  chains = 4,
+  iter_warmup = 2000,
+  iter_sampling = 1000,
+  refresh = 50,
+  output_dir = "/Users/neuse/Documents/MPP/Semester 4/baysian-statistics/baysian",
+  output_basename = "voter_turnout_model_compiled"
+)
+
+# import and inspect posterior ----------------------------------------------------------
+posterior_files <- c("voter_turnout_model_compiled-1.csv", "voter_turnout_model_compiled-2.csv", 
+                     "voter_turnout_model_compiled-3.csv", "voter_turnout_model_compiled-4.csv")
+
+alpha_estimates <- posterior_files %>%
+  purrr::map_dfr(importCmdstanPosterior, 
+                 parameter = "alpha") 
+
+alpha_estimates %>% colMeans()
+
+beta_estimates <- posterior_files %>%
+  purrr::map_dfr(importCmdstanPosterior, 
+                 parameter = "beta") 
+
+beta_estimates %>% colMeans()
+
+eta_estimates <- posterior_files %>%
+  purrr::map_dfr(importCmdstanPosterior, 
+                 parameter = "eta") 
+
+eta_estimates[1,] %>% unlist() %>% hist()
+eta_estimates %>% colMeans() %>% hist()
+
+# The histogram is a distribution of the estimated latent propensities of the individual voters to turn out to vote across various elections
+# These propensities reflect the individual likelihoods of turning out to vote, adjusted for the effects of the specific elections (difficulty and discrimination parameters).
+# Slight skew towards values below zero: A larger proportion of the population might have a lower propensity to vote
+
+# Task 3 ----------------------------------------------------------
+
+# STEP 1: Calculate Posterior Means
+alpha_mean <- colMeans(alpha_estimates)
+beta_mean <- colMeans(beta_estimates)
+
+# STEP 2: Generate Predicted Probabilities
+# Define a range of eta values (voter propensities)
+eta_range <- seq(-6, 6, length.out = 100)
+
+# Compute the predicted probabilities for each eta and election using vectorized operations
+predicted_probabilities <- outer(eta_range, beta_mean, function(eta, beta) {
+  plogis(beta * (eta - alpha_mean))
+})
+
+# STEP 3: Prepare Data Frame for Visualization
+# Reshape the predicted probabilities matrix to long format
+
+df <- expand.grid(Eta = eta_range, Election = seq_along(beta_mean))
+df$Probability <- as.vector(predicted_probabilities)
+
+# Map numeric elections to descriptive labels
+election_labels <- setNames(c(
+  "General Elections 2006", "General Elections 2008", "General Elections 2010",
+  "General Elections 2012", "General Elections 2014", "General Elections 2016",
+  "General Elections 2018", "Primary Elections 2006", "Primary Elections 2008",
+  "Primary Elections 2010", "Primary Elections 2012", "Primary Elections 2014",
+  "Primary Elections 2016", "Primary Elections 2018"
+), 1:14)
+df$Election <- election_labels[as.character(df$Election)]
+
+# STEP 4: Visualization
+ggplot(df, aes(x = Eta, y = Probability, color = Election)) +
+  geom_line() +
+  labs(title = "Predicted Probability of Voting by Voter Propensity",
+       x = "Voter Propensity (Eta)",
+       y = "Probability of Voting") +
+  theme_minimal() +
+  scale_color_viridis_d() # Using Viridis for a smooth color gradient
+
+# Visualizations for each year seperately 
+ggplot(df, aes(x = Eta, y = Probability, group = Election, color = Election)) +
+  geom_line() +
+  facet_wrap(~Election, scales = "free_y") +  # Separate plot for each election
+  labs(title = "Figure: Diagnostic plot for each election",
+       x = "Voter Propensity (Eta)",
+       y = "Probability of Voting") +
+  theme_minimal() +
+  theme(legend.position = "none") 
+
+# The visualizations still exhibit some fluctuations, indicating a lack of model stability and identification issues. To achieve more convergence, the following steps could be taken:
+# 1. Use more informative priors.
+# 2. Reduce parameters.
+# 3. Conduct thorough diagnostics to identify issues such as autocorrelation or inadequate convergence.
+
+# Task 4 ----------------------------------------------------------
+
+#prepare data for stan program
+
+voter_data_long$sex <- as.factor(voter_data_long$sex)
+voter_data_long$race <- as.factor(voter_data_long$race)
+voter_data_long$party <- as.factor(voter_data_long$party)
+voter_data_long$county <- as.factor(voter_data_long$county)
+
+
+demographic_vars <- c("sex", "age_group", "race", "party", "county")
+design_matrix <- model.matrix(~ sex + age_group + race + party + county - 1, data = voter_data_long)
+
+data_stan <- list(
+  N = nrow(voter_data_long),
+  J = length(unique(voter_data_long$voter)),
+  I = length(unique(voter_data_long$election)),
+  jj = as.integer(voter_data_long$voter),
+  ii = as.integer(voter_data_long$election_id),
+  y = voter_data_long$voted,
+  X = as.matrix(design_matrix)  # Adding the demographic matrix to the data list
+)
+
+# stan program --------------------------------------------------------------------------
+voter_turnout_model_complex <- "// Stan program for Voter Turnout Model with Demographic Factors
+data {
+    int<lower=1> N;  // Number of observations
+    int<lower=1> J;  // Number of voters
+    int<lower=1> I;  // Number of elections
+    array[N] int<lower=1, upper=J> jj;  // Voter index for each observation
+    array[N] int<lower=1, upper=I> ii;  // Election index for each observation
+    array[N] int<lower=0, upper=1> y;   // Voter turnout
+    matrix[N, D] X;  // Demographic matrix
+    int<lower=1> D;  // Number of demographic predictors
+}
+
+parameters {
+    vector[I] alpha;  // Difficulty parameter for each election
+    vector<lower=0>[I] beta;  // Discrimination parameter for each election
+    vector[J] eta;  // Latent propensity for each voter influenced by demographics
+    real mu_alpha;  // Mean of difficulty parameters
+    real<lower=0> sigma_alpha;  // SD of difficulty parameters
+    real<lower=0> sigma_beta;  // SD of discrimination parameters
+    vector[D] gamma;  // Coefficients for direct demographic effects on the logistic function
+    vector[D] delta;  // Coefficients for demographic effects on voter propensity
+}
+
+model {
+    // Priors
+    alpha ~ normal(mu_alpha, sigma_alpha);
+    beta ~ lognormal(0, sigma_beta);
+    eta ~ normal(X * delta, 1);  // Voter propensity influenced by demographics
+    gamma ~ normal(0, 1);
+    delta ~ normal(0, 1);  // Assuming a normal prior for effects of demographics on voter propensity
+    mu_alpha ~ student_t(3, 0, 1);
+    sigma_alpha ~ student_t(3, 0, 1);
+    sigma_beta ~ student_t(3, 0, 1);
+
+    // Likelihood incorporating demographic factors
+    for (n in 1:N) {
+        real pi = inv_logit(beta[ii[n]] * (eta[jj[n]] - alpha[ii[n]]) + dot_product(X[n], gamma));
+        y[n] ~ bernoulli(pi);
+    }
+
+}
+"
+
