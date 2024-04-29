@@ -24,7 +24,7 @@ This folder contains the scripts to train and deploy a BiLSTM to assign identity
 
 ### API-Pipeline
 
-This folder includes all scripts to call the content moderation APIs. Each API is called by a custom script, including the configurations and parallelisation for that specific API, and then integrated in a joint script to call all APIs in parallel. Further, the folder entail all pre-processing scripts, both in relation to Experiment 1 (ToxiGen, Jigsaw and MegaSpeech), and Experiment 2 (Identity Phrase Templates and MegaSpeech). Lastly, it contains the scripts to compute all performance metrics in relation to Experiments 1 and 2, as well as their appropriate visualisations. All scripts are written in Python.
+This folder includes all scripts to call the content moderation APIs. Each API is called by a custom script, including the configurations and parallelisation for that specific API, and then integrated in a joint script to call all APIs in parallel. Further, the folder entails all pre-processing scripts, both in relation to Experiment 1 (ToxiGen, Jigsaw and MegaSpeech), and Experiment 2 (Identity Phrase Templates and MegaSpeech). Lastly, it contains the scripts to compute all performance metrics in relation to Experiments 1 and 2, as well as their appropriate visualisations. All scripts are written in Python.
 
 ### Structural-Topic-Model
 
