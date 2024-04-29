@@ -1,10 +1,14 @@
 # Watching the Watchers: A Comparative Audit of Cloud-Based Commercial Content Moderation Services
 
-## Context 
+## Background
+
+### Master Thesis Project
 
 This repository documents the data and computational methods underlying a master thesis in fulfilment of the requirements for a Masters in Data Science for Public Policy (2024) at the Hertie School in Berlin. The thesis was written in partnership with the **Weizenbaum Institute Berlin**, more specifically the working group on Data, Algorithmic Systems and Ethics, and supervised by **Prof. Simon Munzert** from Hertie.
 
-The paper conducts a comparative audit of four major commercial cloud-based content moderation services, offered by Amazon, Google, Microsoft and OpenAI. The paper's **contribution** is twofold. First, it offers the first comprehensive external assessment of these algorithms, which are likely not only in use at the companies themselves, but also deployed by a range of smaller organisations through the SaaS model. Second, the paper advances a suite of tests which may inform future black-box third-party audits of content moderation algorithms. To these ends, the paper implements <strong>three experiments</strong>. First, we evaluate service performance on three popular hate speech datasets, ToxiGen<sup>1</sup>, Jigsaw<sup>2</sup> and MegaSpeech<sup>3</sup>, which were chosen for their popularity and capacity to capture different forms of hate speech. We compute performance metrics both at the aggregate- and at the group-level, parting from most prior research by extending the group-level analysis to a total of eight minority identities. Second, we further test for group-specific biases by running Perturbation Sensitivity Analyses<sup>4</sup> on the most common identity tokens associated with each of the eight minority groups. In essence, we measure the extent to which content moderation services attach a negative bias to these minority tokens, compared to counterfactual majority tokens. We construct these examples from the Identity Phrase Templates in Dixon et al. (2018)<sup>5</sup> and MegaSpeech. Third, we deploy a Structural Topic Model<sup>6</sup> to explore substantively which topics characterize phrases that were either over- or undermoderated by all services, compared to correctly moderated phrases.
+### Short Summary
+
+The paper conducts a comparative audit of four major commercial cloud-based content moderation services, offered by Amazon, Google, Microsoft and OpenAI. The paper's **contribution** is twofold. First, it offers the first comprehensive external assessment of these algorithms, which are likely not only in use at the companies themselves, but also deployed by a range of smaller organisations through the SaaS model. Second, the paper advances a suite of tests which may inform future black-box third-party audits of content moderation algorithms. To these ends, the paper implements three **experiments**. First, we evaluate service performance on three popular hate speech datasets, ToxiGen[1], Jigsaw[2] and MegaSpeech[3], which were chosen for their popularity and capacity to capture different forms of hate speech. We compute performance metrics both at the aggregate- and at the group-level, parting from most prior research by extending the group-level analysis to a total of eight minority identities. Second, we further test for group-specific biases by running Perturbation Sensitivity Analyses on the most common identity tokens associated with each of the eight minority groups. In essence, we measure the extent to which content moderation services attach a negative bias to these minority tokens, compared to counterfactual majority tokens. We construct these examples from the Identity Phrase Templates in Dixon et al. (2018) and MegaSpeech [4]. Third, we deploy a Structural Topic Model<sup>6</sup> to explore substantively which topics characterize phrases that were either over- or undermoderated by all services, compared to correctly moderated phrases.
 
 For further please details, including further background, methodology and results, please also see the paper attached to this repository.
 
@@ -14,7 +18,7 @@ Below you find a brief summary of the main folders included in this repository a
 
 ### IdentityExtractionLSTM
 
-This folder contains the scripts to train and deploy a BiLSTM to assign identity labels to MegaSpeech. The classifier was trained exploiting a relevant dataset by Yoder et al. (2022), achieving an accuracy of 78% on a hold-out test dataset.
+This folder contains the scripts to train and deploy a BiLSTM to assign identity labels to MegaSpeech. The classifier was trained exploiting a relevant dataset by Yoder et al. (2022), achieving an accuracy of 78% on a hold-out test dataset [5].
 
 ### API-Pipeline
 
@@ -33,5 +37,8 @@ Given GitHub data constraints, the pre-trained classification model was excluded
 Feel free to contact me under a.oueslati@students.hertie-school.org for any further requests.
 
 ## References
-[^1]: Jigsaw. Jigsaw toxic comment classification challenge. 2019. URL: https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge.
-[^2]: 
+[^1]: Thomas Hartvigsen, Saadia Gabriel, Hamid Palangi, Maarten Sap, Dipankar Ray, and EceKamar. ToxiGen: A Large-Scale Machine-Generated Dataset for Adversarial and Implicit Hate Speech in Annual Meeting of the Association for Computational Linguistics, 2022.
+[^2]: Jigsaw. Jigsaw toxic comment classification challenge. 2019. URL: https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge.
+[^3]: Sagi Pendzel, Tomer Wullach, Amir Adler, and Einat Minkov. Generative AI for Hate Speech Detection: Evaluation and Findings. arXiv preprint arXiv:2311.09993, 2023.
+[^4]: Lucas Dixon, John Li, Jeffrey Sorensen, Nithum Thain, and Lucy Vasserman. Measuring and Mitigating Unintended Bias in Text Classification. In Proceedings of the 2018 AAAI/ACM Conference on AI, Ethics, and Society, AIES ’18, pages 67–73, New York, NY, USA, 2018. Association for Computing Machinery.
+[^5]: Michael Miller Yoder, Lynnette Hui Xian Ng, David West Brown, and Kathleen M Carley. How hate speech varies by target identity: A computational analysis. arXiv preprint arXiv:2210.10839, 2022.
