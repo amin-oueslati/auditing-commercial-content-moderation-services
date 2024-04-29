@@ -2,9 +2,9 @@
 
 ## Context 
 
-This repository documents the data and computational methods underlying a master thesis in fulfilment of the requirements for a Masters in Data Science for Public Policy (2024) at the Hertie School in Berlin. The thesis was written in partnership with the <strong>Weizenbaum Institute Berlin</strong>, more specifically the working group on Data, Algorithmic Systems and Ethics, and supervised by **Prof. Simon Munzert** from Hertie.
+This repository documents the data and computational methods underlying a master thesis in fulfilment of the requirements for a Masters in Data Science for Public Policy (2024) at the Hertie School in Berlin. The thesis was written in partnership with the **Weizenbaum Institute Berlin**, more specifically the working group on Data, Algorithmic Systems and Ethics, and supervised by **Prof. Simon Munzert** from Hertie.
 
-The paper conducts a comparative audit of four major commercial cloud-based content moderation services, offered by Amazon, Google, Microsoft and OpenAI. The paper's <strong>contribution</strong> is twofold. First, it offers the first comprehensive external assessment of these algorithms, which are likely not only in use at the companies themselves, but also deployed by a range of smaller organisations through the SaaS model. Second, the paper advances a suite of tests which may inform future black-box third-party audits of content moderation algorithms. To these ends, the paper implements <strong>three experiments</strong>. First, we evaluate service performance on three popular hate speech datasets, ToxiGen<sup>1</sup>, Jigsaw<sup>2</sup> and MegaSpeech<sup>3</sup>, which were chosen for their popularity and capacity to capture different forms of hate speech. We compute performance metrics both at the aggregate- and at the group-level, parting from most prior research by extending the group-level analysis to a total of eight minority identities. Second, we further test for group-specific biases by running Perturbation Sensitivity Analyses<sup>4</sup> on the most common identity tokens associated with each of the eight minority groups. In essence, we measure the extent to which content moderation services attach a negative bias to these minority tokens, compared to counterfactual majority tokens. We construct these examples from the Identity Phrase Templates in Dixon et al. (2018)<sup>5</sup> and MegaSpeech. Third, we deploy a Structural Topic Model<sup>6</sup> to explore substantively which topics characterize phrases that were either over- or undermoderated by all services, compared to correctly moderated phrases.
+The paper conducts a comparative audit of four major commercial cloud-based content moderation services, offered by Amazon, Google, Microsoft and OpenAI. The paper's **contribution** is twofold. First, it offers the first comprehensive external assessment of these algorithms, which are likely not only in use at the companies themselves, but also deployed by a range of smaller organisations through the SaaS model. Second, the paper advances a suite of tests which may inform future black-box third-party audits of content moderation algorithms. To these ends, the paper implements <strong>three experiments</strong>. First, we evaluate service performance on three popular hate speech datasets, ToxiGen<sup>1</sup>, Jigsaw<sup>2</sup> and MegaSpeech<sup>3</sup>, which were chosen for their popularity and capacity to capture different forms of hate speech. We compute performance metrics both at the aggregate- and at the group-level, parting from most prior research by extending the group-level analysis to a total of eight minority identities. Second, we further test for group-specific biases by running Perturbation Sensitivity Analyses<sup>4</sup> on the most common identity tokens associated with each of the eight minority groups. In essence, we measure the extent to which content moderation services attach a negative bias to these minority tokens, compared to counterfactual majority tokens. We construct these examples from the Identity Phrase Templates in Dixon et al. (2018)<sup>5</sup> and MegaSpeech. Third, we deploy a Structural Topic Model<sup>6</sup> to explore substantively which topics characterize phrases that were either over- or undermoderated by all services, compared to correctly moderated phrases.
 
 For further please details, including further background, methodology and results, please also see the paper attached to this repository.
 
@@ -12,14 +12,13 @@ For further please details, including further background, methodology and result
 
 Below you find a brief summary of the main folders included in this repository and their link to the analyses from the paper.
 
+### IdentityExtractionLSTM
+
+This folder contains the scripts to train and deploy a BiLSTM to assign identity labels to MegaSpeech. The classifier was trained exploiting a relevant dataset by Yoder et al. (2022), achieving an accuracy of 78% on a hold-out test dataset.
+
 ### API-Pipeline
 
-This folder includes all scripts to call the content moderation services' APIs. Each API is called by a custom script, including the configurations and parallelisation for that specific API, and then integrated in a joint script to call all APIs in parallel. Further, the folder includes all data pre-processing, both in relation to Experiment 1 (ToxiGen, Jigsaw and MegaSpeech), and Experiment 2 (Identity Phrase Templates and MegaSpeech). Lastly, it contains the scripts to compute all performance metrics put forward by the paper and visualise them appropriately. All scripts are written in Python.
-
-
-### API-Pipeline
-
-This folder includes all scripts to call the content moderation services' APIs. Each API is called by a custom script, including the configurations and parallelisation for that specific API, and then integrated in a joint script to call all APIs in parallel. Further, the folder includes all data pre-processing, both in relation to Experiment 1 (ToxiGen, Jigsaw and MegaSpeech), and Experiment 2 (Identity Phrase Templates and MegaSpeech). Lastly, it contains the scripts to compute all performance metrics put forward by the paper and visualise them appropriately. All scripts are written in Python.
+This folder includes all scripts to call the content moderation services' APIs. Each API is called by a custom script, including the configurations and parallelisation for that specific API, and then integrated in a joint script to call all APIs in parallel. Further, the folder includes all data pre-processing, both in relation to Experiment 1 (ToxiGen, Jigsaw and MegaSpeech), and Experiment 2 (Identity Phrase Templates and MegaSpeech). Lastly, it contains the scripts to compute all performance metrics in relation to Experiments 1 and 2, as well as their appropriate visualisation. All scripts are written in Python.
 
 ### Structural-Topic-Model
 
@@ -27,8 +26,12 @@ This folder exclusively pertains to Experiment 3 and is entirely written in R. T
 
 ### Note on Reproducability
 
+To allow evaluators of this thesis to validate particular results, the API call scripts contain the necessary API keys. While project resources allow for selected reproduction, extensive reproduction would require prior coordination. Running these API calls does not require any GPU support, parallelisation and batching is embedded in the call scripts. The BiLSTM model was run with GPU support (T4, 15GB).
 
+Given GitHub data constraints, the pre-trained classification model was excluded from the repository. It can be made available upon request. Further, the raw dataset for Jigsaw exceeds the GitHub data limit, but can be accessed directly via [Jigsaw Unintended Bias in Toxicity Classification](https://www.kaggle.com/c/jigsaw-unintended-bias-in-toxicity-classification/data). 
+
+Feel free to contact me under a.oueslati@students.hertie-school.org for any further requests.
 
 ## References
-[^1]: Jigsaw. Jigsaw toxic comment classification challenge., 2019. URL: https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge.
+[^1]: Jigsaw. Jigsaw toxic comment classification challenge. 2019. URL: https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge.
 [^2]: 
