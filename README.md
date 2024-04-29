@@ -4,7 +4,7 @@
 
 ### Master Thesis Project
 
-This repository documents the data and computational methods underlying a master thesis in fulfilment of the requirements for a Masters in Data Science for Public Policy (2024) at the Hertie School in Berlin. The thesis was written in partnership with the **Weizenbaum Institute Berlin**, more specifically the working group on Data, Algorithmic Systems and Ethics, and supervised by **Prof. Simon Munzert** from Hertie.
+This repository documents the data and computational methods underlying a master thesis in fulfilment of the requirements for a Masters in Data Science for Public Policy (2024) at the Hertie School in Berlin, authored by **Amin Oueslati**. The thesis was written in partnership with the **Weizenbaum Institute Berlin**, more specifically the working group on Data, Algorithmic Systems and Ethics, and supervised by **Prof. Simon Munzert** from Hertie.
 
 Feel free to contact me under a.oueslati@students.hertie-school.org for any further requests.
 
