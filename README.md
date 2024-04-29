@@ -28,17 +28,17 @@ This folder includes all scripts to call the content moderation APIs. Each API i
 
 ### Structural-Topic-Model
 
-This folder exclusively pertains to Experiment 3 and is entirely written in R. The switch in programming language is primarily motivated by the superb R stm package from Roberts et al. (2019).[^5] Scripts cover pre-processing, the exploration and comparison of varying topic values K, as well as ultimate analysis and visualisation. While the paper only reports Structural Topic Model results for those cases which were moderated consistently across all moderation services, the repository also includes scripts to explore substantive moderation patterns for Google Content Moderation. The results for Google were excluded from the final paper for reasons of brevity.
+This folder exclusively pertains to Experiment 3 and is entirely written in R. The switch in programming language is primarily motivated by the superb R stm package from Roberts et al. (2019).[^5] Scripts cover pre-processing, the exploration and comparison of varying topic values K, as well as ultimate analysis and visualisation. While the paper only reports Structural Topic Model results for those cases, which were moderated consistently across all moderation services, the repository also includes scripts to explore substantive moderation patterns for Google Content Moderation. The results for Google were excluded from the final paper for reasons of brevity.
 
-### Note on Reproducability
+### Note on Reproducibility
 
-API keys were invalidated to avoid abuse. However, if evaulators' of this thesis want to replicate particular results, this can be accomodated, ideally on a smaller sample. Extensive reproduction would also be feasible, but requires prior discussion. Running the involved API calls does not require any GPU support, parallelisation and batching are embedded in the call scripts. The BiLSTM model was executed with GPU support (T4, 15GB) to reduce runtime.
+API keys were invalidated to avoid abuse. However, if evaluators' of this thesis want to replicate particular results, this can be accommodated, ideally on a smaller sample. Extensive reproduction would also be feasible, but requires prior discussion. Running the involved API calls does not require any GPU support, parallelisation and batching are embedded in the call scripts. The BiLSTM model was executed with GPU support (T4, 15GB) to reduce runtime.
 
 Given GitHub's data constraints, the pre-trained classification model was excluded from the repository. It can be made available upon request. Further, the raw dataset for Jigsaw exceeds the GitHub data limit, but can be accessed directly via [Jigsaw Unintended Bias in Toxicity Classification](https://www.kaggle.com/c/jigsaw-unintended-bias-in-toxicity-classification/data). 
 
 ## References
 [^1]: THartvigsen, T., Gabriel, S., Palangi, H., Sap, M., Ray, D. and Kamar, E. (2022), Toxi-Gen: A Large-Scale Machine-Generated Dataset for Adversarial and Implicit Hate Speech Detection, in ‘60th Annual Meeting of the Association for Computational Linguistics’.
-[^2]: JJigsaw (2019), ‘Jigsaw toxic comment classification challenge’. Last accessed 2024-04-29. URL: https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge.
+[^2]: Jigsaw (2019), ‘Jigsaw toxic comment classification challenge’. Last accessed 2024-04-29. URL: https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge.
 [^3]: Pendzel, S., Wullach, T., Adler, A. and Minkov, E. (2023), ‘Generative AI for Hate Speech Detection: Evaluation and Findings’, arXiv preprint arXiv:2311.09993.
 [^4]: Dixon, L., Li, J., Sorensen, J., Thain, N. and Vasserman, L. (2018), Measuring and Mitigating Unintended Bias in Text Classification, in ‘Proceedings of the 2018 AAAI/ACM Conference on AI, Ethics, and Society’, AIES ’18, Association for Computing Machinery, New York, NY, USA, pp. 67–73.
 [^5]: Roberts, M., Stewart, B. and Tingley, D. (2019), ‘stm : An R Package for Structural Topic Models’, Journal of Statistical Software 91.
